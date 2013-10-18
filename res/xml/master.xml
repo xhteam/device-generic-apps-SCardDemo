@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/sim_label">
+    
+    <Preference
+        android:key="iccid_info"
+        android:title="@string/iccid"
+        android:persistent="false" />
+    
+    <Preference
+        android:key="imsi_info"
+        android:title="@string/imsi"
+        android:persistent="false" />
+    
+    <Preference
+        android:key="sms_info"
+        android:title="@string/sms"
+        android:persistent="false" />
+    
+    <Preference
+        android:key="adn_info"
+        android:title="@string/adn"
+        android:persistent="false" />
+    
+</PreferenceScreen>

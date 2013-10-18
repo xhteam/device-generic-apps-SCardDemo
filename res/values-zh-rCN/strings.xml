@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="iccid">唯一识别号</string>
+    <string name="imsi">国际移动用户识别符</string>
+    <string name="adn">联系人目录</string>
+    <string name="sms">短信目录</string>
+    <string name="pin_summary">请输入正确的 PIN 码</string>
+    <string name="pin_format">PIN 码格式错误，请重新输入</string>
+    <string name="pin_err">PIN 码错误, 剩余验证次数：&#160;</string>
+    <string name="chv_block">验证失败，SIM 卡已锁</string>
+    <string name="record_empty">未发现记录信息</string>
+    <string name="confirm">确定</string>
+    <string name="next">提交</string>
+    <string name="cancel">取消</string>
+    <string name="unknown">未知的</string>
+    <string name="reading">读取记录</string>
+    <string name="init_ui">请稍候……</string>
+
+</resources>

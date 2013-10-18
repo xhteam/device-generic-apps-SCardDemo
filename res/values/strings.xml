@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SimDemo</string>
+    <string name="sim_label">SIM</string>
+    <string name="iccid">ICCID</string>
+    <string name="imsi">IMSI</string>
+    <string name="adn">CONTACTS</string>
+    <string name="sms">SMS</string>
+    <string name="pin">PIN</string>
+    <string name="pin_summary">Please input the correct PIN Code</string>
+    <string name="pin_format">PIN format error, try again</string>
+    <string name="pin_err">PIN code error, remaining retries:&#160;</string>
+    <string name="chv_block">CHV blocked</string>
+    <string name="record_empty">No records found</string>
+    <string name="confirm">OK</string>
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
+    <string name="unknown">Unknown</string>
+    <string name="reading">Reading record</string>
+    <string name="init_ui">Please wait&#8230;</string>
+
+</resources>
