@@ -9,7 +9,7 @@ LOCAL_PACKAGE_NAME := SCardDemo
 LOCAL_CERTIFICATE := platform
 
 LOCAL_JNI_SHARED_LIBRARIES := libscard
-#LOCAL_JAVA_LIBRARIES := javax.obex
+LOCAL_JAVA_LIBRARIES := com.quester.android.platform_library
 #LOCAL_STATIC_JAVA_LIBRARIES := com.android.vcard
 
 LOCAL_REQUIRED_MODULES := libscard

@@ -19,5 +19,6 @@
     <string name="unknown">Unknown</string>
     <string name="reading">Reading record</string>
     <string name="init_ui">Please wait&#8230;</string>
+	<string name="starting">Starting Service</string>
 
 </resources>

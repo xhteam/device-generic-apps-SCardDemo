@@ -1,10 +1,14 @@
 package com.quester.scard;
 
+import com.quester.android.platform_library.PcscdManager;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.widget.Toast;
 
 public class SCardActivity extends PreferenceActivity implements SCardPcscLite {
 	
@@ -15,17 +19,21 @@ public class SCardActivity extends PreferenceActivity implements SCardPcscLite {
 	private static final int SW_LGTH_ERR = 5;
 	private static final int SW_RESPONSE = 6;
 
+	private static final int SERVICE_DELAY = 2000;
+
 	private Preference mIccid;
 	private Preference mImsi;
 	private Preference mSms;
 	private Preference mAdn;
+	private ProgressDialog mServiceDialog;
 	
 	private boolean mConnect = false;
 	private boolean mTransmit = false;
 	private boolean mStandby = false;
-	private boolean mInit = false;
+	private boolean mFirstInitDone = false;
 	
 	private byte[] recv = new byte[128];
+	private PcscdManager mPcscdManager;
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -36,24 +44,67 @@ public class SCardActivity extends PreferenceActivity implements SCardPcscLite {
 		mImsi = findPreference("imsi_info");
 		mSms = findPreference("sms_info");
 		mAdn = findPreference("adn_info");
+		mPcscdManager = new PcscdManager();
 		Common.init();
+		if (mPcscdManager.startService()) {
+			 setProgressDialog();
+			 new Thread(new Runnable() {
+				 public void run() {
+					 try {
+						 Thread.sleep(SERVICE_DELAY);
+					 } catch (Exception e) {
+						 // NA
+					 } finally {
+						 cancelProgressDialog();
+					 }
+				 }
+			 }).start();
+		} else {
+			Toast.makeText(this, "Start pcscd service failure!", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void setProgressDialog() {
+		if (mServiceDialog == null) {
+			mServiceDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+			mServiceDialog.setTitle(R.string.starting);
+			mServiceDialog.setMessage(getString(R.string.init_ui));
+		}
+		mServiceDialog.setCancelable(false);
+		mServiceDialog.show();
+	}
+	
+	private void cancelProgressDialog() {
+		runOnUiThread(new Runnable() {
+			public void run() {
+				if (mServiceDialog != null) {
+					mServiceDialog.dismiss();
+					doFirstInit();
+				}
+			}
+		});
+	}
+
+	private void doFirstInit() {
 		getSCardState();
+		selectMF();
+		getIccid();
+		getImsi();
+		mFirstInitDone = true;
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectMF();
-		if (!mInit) {
-			getIccid();
-			getImsi();
-			mInit = true;
+		if (mFirstInitDone) {
+			selectMF();
 		}
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		mPcscdManager.stopService();
 		if (mConnect) {
 			if (mTransmit) {
 				Common.mgr.scardEndTransaction(SCARD_LEAVE_CARD);
