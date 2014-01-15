@@ -1,6 +1,7 @@
 package com.quester.scard;
 
 import com.quester.android.platform_library.PcscdManager;
+import com.quester.android.platform_library.scard.*;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

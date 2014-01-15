@@ -1,4 +1,5 @@
 package com.quester.scard;
+import com.quester.android.platform_library.scard.*;
 
 public class Common {
 	
